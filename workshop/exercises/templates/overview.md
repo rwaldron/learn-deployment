@@ -9,7 +9,7 @@ provides the `template` module. The template module takes a locally relative
   template: src=relative/path/app.conf dest=/etc/nginx/conf.d/
 ```
 
-Templates have access to all variables which will be inerpolated if they are
+Templates have access to all variables which will be interpolated if they are
 wrapped in `{{var_name}}`.
 
 Jinja2 also supports a broad range of filters which can be used to format, and
