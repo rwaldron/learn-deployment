@@ -14,8 +14,8 @@
         vpc_subnet_id: "{{aws_ec2.subnet_id}}"
         count: "{{users|length}}"
         instance_tags:
-          learn-deployment: true
-      register: ec2
+          learn_deployment_student: true
+      register: student_ec2
 
     - name: Create DNS record for user's server
       cloudflare_domain: >
@@ -27,18 +27,17 @@
         email={{cloudflare.email}}
         token={{cloudflare.token}}
       with_together:
-        - "{{ec2.instances}}"
+        - "{{student_ec2.instances}}"
         - "{{users}}"
 
     - name: Tag each server with their specific user name
       ec2_tag: resource={{item.0.id}} region={{aws_ec2.region}} state=present
       args:
         tags:
-          name: "{{item.1.name}}"
+          Name: "{{item.1.name}}"
           username: "{{item.1.username}}"
-          fqdn: "{{item.1.username}}.{{cloudflare.domain}}"
           subdomain: "{{item.1.username}}"
           zone: "{{cloudflare.domain}}"
       with_together:
-        - "{{ec2.instances}}"
+        - "{{student_ec2.instances}}"
         - "{{users}}"

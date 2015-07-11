@@ -1,4 +1,4 @@
-- hosts: ec2
+- hosts: tag_learn_deployment_student_True
   gather_facts: True
   connection: local
   tasks:
