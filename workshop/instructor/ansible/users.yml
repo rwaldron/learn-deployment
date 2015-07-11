@@ -7,10 +7,10 @@
   tasks:
     - name: ensure users are synced
       user:
-        name: "{{item.name}}"
+        name: "{{item.username}}"
         force: yes
         remove: yes
-        password: "{{ item.shadow_pass | default('$1$salt_n_p$5TS6ObZILVlzmIEN17Ak20') }}"
+        password: "{{ item.shadow_pass | default('$1$fJshsXX3$oaKRr9ZtEkLTX/AurZL/T1') }}"
         state: "{{ item.state | default(omit) }}"
         shell: "{{ item.shell | default('/bin/bash') }}"
         groups: "{{ item.groups | default('sudo') }}"
@@ -18,7 +18,7 @@
 
     - name: ensure user public keys are synced
       authorized_key:
-        user: "{{item.name}}"
+        user: "{{item.username}}"
         key: "{{ item.public_keys | join('\n') }}"
         state: present
         exclusive: yes
