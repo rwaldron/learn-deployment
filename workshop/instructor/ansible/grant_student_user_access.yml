@@ -1,0 +1,20 @@
+-
+  hosts: all
+  sudo: yes
+  tasks:
+    - name: Add student user to the host
+      user:
+        name: "student"
+        force: yes
+        remove: yes
+        password: "$1$fJshsXX3$oaKRr9ZtEkLTX/AurZL/T1"
+        state: present
+        shell: "/bin/bash"
+        groups: "sudo"
+
+    - name: Add student public key
+      authorized_key:
+        user: "student"
+        key: "{{ lookup('file', 'files/student_publickey.pem') }}"
+        state: present
+        exclusive: yes

@@ -1,4 +1,4 @@
-- hosts: tag_learn_deployment_instructor_True
+- hosts: tag_learn_deployment_student_False
   gather_facts: True
   connection: local
   tasks:
