@@ -1,12 +1,12 @@
 # EXERCISE
 
 The instructor of this workshop should have provided you with an un-configured
-server to connect to. Copy your public key to the ubuntu user's home directory
+server to connect to. Copy your public key to the `workshop` user's home directory
 with this command:
 
-`scp -i privatekey.pem ~/.ssh/id_rsa.pub ubuntu@<user>.learndeployment.com:~/`
+`scp -i privatekey.pem ~/.ssh/id_rsa.pub workshop@<username>.learndeployment.com:~/`
 
-Next, connect to the machine as the ubuntu user and create your own account:
+Next, connect to the machine as the `workshop` user and create your own account:
 
 `sudo adduser --disable-password <username>`
 

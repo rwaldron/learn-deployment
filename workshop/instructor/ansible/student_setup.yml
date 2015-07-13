@@ -14,6 +14,7 @@
         vpc_subnet_id: "{{aws_ec2.subnet_id}}"
         count: "{{users|length}}"
         instance_tags:
+          learn_deployment: true
           learn_deployment_student: true
       register: student_ec2
 

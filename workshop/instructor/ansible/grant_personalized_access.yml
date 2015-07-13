@@ -1,5 +1,5 @@
 -
-  hosts: all
+  hosts: tag_learn_deployment_True
   sudo: yes
   handlers:
     - name: restart sshd

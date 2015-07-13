@@ -1,10 +1,10 @@
-# copy your public key into the ubuntu user's home directory
-scp -i privatekey.pem ~/.ssh/id_rsa.pub ubuntu@<username>.learndeployment.com:~/
+# copy your public key into the `workshop` user's home directory
+scp -i privatekey.pem ~/.ssh/id_rsa.pub workshop@<username>.learndeployment.com:~/
 
 # ssh into the server
-ssh -i privatekey.pem ubuntu@<username>.learndeployment.com
+ssh -i privatekey.pem workshop@<username>.learndeployment.com
   # create a user
-  sudo adduser --disable-password tkellen
+  sudo adduser --disable-password <username>
   # add a .ssh folder for the new username
   sudo mkdir ~<username>/.ssh
   # put the public key in the .ssh folder under authorized_keys

@@ -24,6 +24,19 @@ The instructor will begin each section by using the overview file as a guide to
 explain the new concept. After fielding any questions, attendees will then run
 `learn-deployment` on their own machine to begin development.
 
+The instructor should now setup the student and instructor servers:
+
+```
+ansible-playbook -i localhost, instructor_setup.yml
+ansible-playbook -i localhost, student_setup.yml
+```
+
+Grant student access to all the servers by creating the `workshop` user on all machines
+
+```
+ansible-playbook -i inventory/ec2.py -u ubuntu --private-key <PATH_TO_ADMIN_KEY> create_workshop_user.yml
+```
+
 ## asymmetric-cryptography
 
 The instructor will explain asymmetric cryptography.
@@ -32,17 +45,17 @@ The instructor will explain asymmetric cryptography.
 
 The exercise folder contains a private key which can be used to connect to
 an EC2 instance accessible at `workshop.learndeployment.com` with the
-username `ubuntu`. Notably, the key has the wrong permissions. Attendees must
+username `workshop`. Notably, the key has the wrong permissions. Attendees must
 first correct this before they can connect (chmod 400, owner read only).
 
 Once all attendees have successfully connected, everyone should log off and
 try to connect as themselves. This will fail.
 
 Then, the instructor will tell the attendees to wait a moment as they run a
-playbook to give everyone access. 
+playbook to give everyone personalized access. 
 
 ```
-ansible-playbook --private-key=../../exercises/ssh-basics/privatekey.pem -u ubuntu -i inventory/studentservers users.yml
+ansible-playbook -i inventory/ec2.py -l tag_learn_deployment_student_False -u ubuntu --private-key <PATH_TO_ADMIN_KEY> grant_personalized_access.yml
 ```
 
 A few seconds later, everyone in the room has
@@ -110,6 +123,13 @@ public key auth.
 
 If this goes quickly, attendees will be encouraged to make accounts for other
 users in the workshop.
+
+In the event a user needs assistance their username can be automatically created on the
+box by filtering the ec2 dynamic inventory and running the personalized access playbook.
+
+```
+ansible-playbook -i inventory/ec2.py -l tag_username_<USERNAME> -u ubuntu --private-key <PATH_TO_ADMIN_KEY> grant_personalized_access.yml
+```
 
 Finally, the existence of http://github.com/username.keys will be pointed out as
 a matter of convenience.

@@ -69,4 +69,4 @@ ssh -i /path/to/key workshop.learndeployment.com
 
 This exercise comes with a private key. Use it in conjunction with the `ssh`
 command to connect to the server running at `workshop.learndeployment.com`.
-You will need to connect as the user `ubuntu`.
+You will need to connect as the user ``.

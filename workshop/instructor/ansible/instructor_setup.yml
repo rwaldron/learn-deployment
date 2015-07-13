@@ -15,6 +15,7 @@
         count: 1
         instance_tags:
           Name: "Instructor"
+          learn_deployment: true
           learn_deployment_student: false
           subdomain: "{{instructor.subdomain}}"
           zone: "{{cloudflare.domain}}"
