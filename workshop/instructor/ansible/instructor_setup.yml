@@ -15,7 +15,7 @@
         count: 1
         instance_tags:
           Name: "Instructor"
-          learn_deployment_instructor: true
+          learn_deployment_student: false
           subdomain: "{{instructor.subdomain}}"
           zone: "{{cloudflare.domain}}"
       register: instructor_ec2
