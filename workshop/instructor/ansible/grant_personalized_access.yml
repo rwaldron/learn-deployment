@@ -42,7 +42,7 @@
         line: "ChallengeResponseAuthentication no"
       notify: restart sshd
 
-    - name: allow passwordless sudo for users in group sudo
+    - name: disallow passwordless sudo for users in group sudo
       lineinfile:
         dest: /etc/sudoers
         state: present

@@ -31,7 +31,9 @@ ansible-playbook -i localhost, instructor_setup.yml
 ansible-playbook -i localhost, student_setup.yml
 ```
 
-Grant student access to all the servers by creating the `workshop` user on all machines
+Grant student access to all the servers by creating the `workshop` user on all 
+machines. You might have to wait a few seconds after the first two commands so the 
+AWS API and dynamic inventory are up to date.
 
 ```
 ansible-playbook -i inventory/ec2.py -u ubuntu --private-key <PATH_TO_ADMIN_KEY> create_workshop_user.yml
@@ -80,8 +82,22 @@ Everyone should be able to SSH to `workshop.learndeployment.com` as their own
 user before this exercise begins.
 
 To illustrate what a MiTM attack might look like, the instructor will switch EC2
-instances for `workshop.learndeployment.com`. Attendees will then SSH to the
-server. This will trigger a warning.
+instances for `workshop.learndeployment.com`:
+
+```
+ansible-playbook -i inventory/ec2.py -l tag_learn_deployment_student_False teardown.yml
+ansible-playbook -i localhost, instructor_setup.yml
+```
+
+Some time should pass before running these as the API calls for dynamic inventory do
+not update immediately and these tasks will fail if called before everything is up to date.
+
+```
+ansible-playbook -i inventory/ec2.py -l tag_learn_deployment_student_False -u ubuntu --private-key <PATH_TO_ADMIN_KEY> create_workshop_user.yml
+ansible-playbook -i inventory/ec2.py -l tag_learn_deployment_student_False -u ubuntu --private-key <PATH_TO_ADMIN_KEY> grant_personalized_access.yml
+```
+
+Attendees will then SSH to the server. This will trigger a warning.
 
 The instructor will then explain how to fix this problem using `ssh-keygen`,
 with an emphasis that the veracity of the server should be verified before this
@@ -232,3 +248,21 @@ path to nodejs and use it in our upstart template.
 ## nginx
 
 More to write, but.... hook nginx and service together. Fin.
+
+## cleaning up after class
+
+At the end of class you'll want to terminate all the running servers, you can
+accomplish this by running the teardown playbook:
+
+```
+ansible-playbook -i inventory/ec2.py teardown.yml
+```
+
+## targeting a specific machine
+
+Each student machine is tagged with their username, any playbook that is passed the 
+dynamic inventory file `inventory/ec2.py` will be able to filter using the `-l` option:
+
+```
+ansible-playbook -i inventory/ec2.py -l tag_username_<USERNAME> ...
+```
