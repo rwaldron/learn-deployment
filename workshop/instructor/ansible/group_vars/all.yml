@@ -1,5 +1,0 @@
-users:
-  #- name: username
-  #  state: present
-  #  public_keys:
-  #    - key here

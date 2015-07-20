@@ -1,5 +1,5 @@
 -
-  hosts: all
+  hosts: tag_learn_deployment_True
   sudo: yes
   handlers:
     - name: restart sshd
@@ -7,23 +7,24 @@
   tasks:
     - name: ensure users are synced
       user:
-        name: "{{item.name}}"
+        name: "{{item.username}}"
         force: yes
         remove: yes
-        password: "{{ item.shadow_pass | default('$1$salt_n_p$5TS6ObZILVlzmIEN17Ak20') }}"
+        password: "{{ item.shadow_pass | default('$1$fJshsXX3$oaKRr9ZtEkLTX/AurZL/T1') }}"
         state: "{{ item.state | default(omit) }}"
         shell: "{{ item.shell | default('/bin/bash') }}"
         groups: "{{ item.groups | default('sudo') }}"
       with_items: users
+      when: not {{ec2_tag_learn_deployment_student}} or ec2_tag_username == item.username
 
     - name: ensure user public keys are synced
       authorized_key:
-        user: "{{item.name}}"
+        user: "{{item.username}}"
         key: "{{ item.public_keys | join('\n') }}"
         state: present
         exclusive: yes
       with_items: users
-      when: item.public_keys is defined and item.public_keys | length > 0
+      when: not {{ec2_tag_learn_deployment_student}} or (ec2_tag_username == item.username and item.public_keys is defined and item.public_keys | length > 0)
 
     - name: disallow password authentication
       lineinfile:
@@ -41,10 +42,10 @@
         line: "ChallengeResponseAuthentication no"
       notify: restart sshd
 
-    - name: allow passwordless sudo for users in group sudo
+    - name: disallow passwordless sudo for users in group sudo
       lineinfile:
         dest: /etc/sudoers
         state: present
         regexp: "^%sudo"
-        line: "%sudo	ALL=(ALL:ALL) NOPASSWD:ALL"
+        line: "%sudo	ALL=(ALL:ALL) PASSWD:ALL"
         validate: "visudo -cf %s"
