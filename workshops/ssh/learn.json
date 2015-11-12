@@ -1,0 +1,19 @@
+{
+  "title": "learn-ssh",
+  "description": "Learn SSH",
+  "path": "exercises",
+  "exercises": [
+    "asymmetric-cryptography",
+    "ssh-basics",
+    "authorized-keys",
+    "known-hosts",
+    "ssh-key-passphrases",
+    "ssh-agent"
+  ],
+  "meta": {
+    "colors": {
+      "bg": "black",
+      "fg": "green"
+    }
+  }
+}

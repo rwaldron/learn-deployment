@@ -1,7 +1,7 @@
 # NGINX
 
 In order for your host to respond to incoming HTTP requests from a user's web
-browser it needs to be running an HTTP server. There are many available, like
+browser, it needs to be running an HTTP server. There are many available, like
 `Apache`, `IIS`, `lighttpd` but this workshop focuses on `NGINX` because its
 configuration files are relatively easy to understand.
 
@@ -54,7 +54,7 @@ on the machine.
 ## PROXY PARAMS
 
 Be aware that using a HTTP proxy in front of an application will make it seem as
-though all traffic hitting the application orginated from the proxy itself.
+though all traffic hitting the application originated from the proxy itself.
 
 Because of this, HTTP provides special headers such as `X-FORWARDED-FOR` and
 `X-REAL-IP` to inform services which are behind a proxy where on the wider

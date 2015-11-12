@@ -1,14 +1,8 @@
 {
-  "title": "learn-deployment",
+  "title": "learn-ansible",
   "description": "Learn Deployment With Ansible",
   "path": "exercises",
   "exercises": [
-    "asymmetric-cryptography",
-    "ssh-basics",
-    "authorized-keys",
-    "known-hosts",
-    "ssh-key-passphrases",
-    "ssh-agent",
     "permission-elevation",
     "your-server",
     "ansible",

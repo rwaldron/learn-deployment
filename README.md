@@ -7,4 +7,5 @@
 2. Install Ansible 1.9.2.
 3. `npm install -g learn-deployment`
 4. Wait for the workshop to begin.
-5. Run `learn-deployment`!
+5. Run `learn-ssh` or `learn-ansible` depending on which stage of the workshop
+   you are in!

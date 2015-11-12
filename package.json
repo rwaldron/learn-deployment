@@ -6,7 +6,8 @@
   "repository": "bocoup/learn-deployment",
   "author": "Tyler Kellen & Matt Surabian <hello@bocoup.com> (http://bocoup.com/)",
   "bin": {
-    "learn-deployment": "bin/workshop.js"
+    "learn-ssh": "bin/learn-ssh.js",
+    "learn-ansible": "bin/learn-ansible.js"
   },
   "dependencies": {
     "marked": "^0.3.3",
