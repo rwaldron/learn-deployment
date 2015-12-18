@@ -22,7 +22,7 @@
       with_subelements:
         - users
         - keys
-      when: not {{ec2_tag_learn_deployment_student}} or (ec2_tag_username == item.name and item.keys is defined and item.keys | length > 0)
+      when: not {{ec2_tag_learn_deployment_student}} or ec2_tag_username == item.0.name
 
     - name: disallow password authentication
       lineinfile:
