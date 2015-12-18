@@ -1,4 +1,4 @@
-# HOW TO MAYBE USE TEMPLATES IF YOU'RE NOT TIRED ;)
+# TEMPLATES IN ANSIBLE
 
 To facilitate file generation Ansible uses the Jinja2 templating engine and
 provides the `template` module. The template module takes a locally relative
