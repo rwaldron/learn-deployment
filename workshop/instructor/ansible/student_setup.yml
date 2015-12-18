@@ -21,7 +21,7 @@
     - name: Create DNS record for user's server
       cloudflare_domain: >
         state=present
-        name={{item.1.username}}
+        name={{item.1.name}}
         zone={{cloudflare.domain}}
         type=A
         content={{item.0.public_ip}}
@@ -36,8 +36,8 @@
       args:
         tags:
           Name: "{{item.1.name}}"
-          username: "{{item.1.username}}"
-          subdomain: "{{item.1.username}}"
+          username: "{{item.1.name}}"
+          subdomain: "{{item.1.name}}"
           zone: "{{cloudflare.domain}}"
       with_together:
         - "{{student_ec2.instances}}"

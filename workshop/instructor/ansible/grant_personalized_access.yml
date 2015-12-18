@@ -7,7 +7,7 @@
   tasks:
     - name: ensure users are synced
       user:
-        name: "{{item.username}}"
+        name: "{{item.name}}"
         force: yes
         remove: yes
         password: "{{ item.shadow_pass | default('$1$fJshsXX3$oaKRr9ZtEkLTX/AurZL/T1') }}"
@@ -15,16 +15,14 @@
         shell: "{{ item.shell | default('/bin/bash') }}"
         groups: "{{ item.groups | default('sudo') }}"
       with_items: users
-      when: not {{ec2_tag_learn_deployment_student}} or ec2_tag_username == item.username
+      when: not {{ec2_tag_learn_deployment_student}} or ec2_tag_username == item.name
 
-    - name: ensure user public keys are synced
-      authorized_key:
-        user: "{{item.username}}"
-        key: "{{ item.public_keys | join('\n') }}"
-        state: present
-        exclusive: yes
-      with_items: users
-      when: not {{ec2_tag_learn_deployment_student}} or (ec2_tag_username == item.username and item.public_keys is defined and item.public_keys | length > 0)
+    - name: sync all users keys
+      authorized_key: user={{item.0.name}} key="{{item.1.key}}" state={{item.1.state}}
+      with_subelements:
+        - users
+        - keys
+      when: not {{ec2_tag_learn_deployment_student}} or (ec2_tag_username == item.name and item.keys is defined and item.keys | length > 0)
 
     - name: disallow password authentication
       lineinfile:

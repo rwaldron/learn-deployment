@@ -16,9 +16,11 @@ instructor:
   subdomain: SUBDOMAIN_FOR_CENTRAL_SERVER
 
 users:
-  - name: A STUDENT
-    username: studentA
+  - name: USERNAME
+    real_name: REAL NAME
     state: present
-    public_keys:
-     - A_SSH_PUBLIC_KEY
-     - ANOTHER_SSH_PUBLIC_KEY
+    keys:
+      - state: present
+        key: A_SSH_KEY
+      - state: present
+        key: ANOTHER_SSH_KEY
