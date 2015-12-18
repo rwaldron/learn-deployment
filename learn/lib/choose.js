@@ -27,5 +27,6 @@ module.exports = function (exercisesDir, exercises) {
       wrench.copyDirSyncRecursive(src, dest);
       console.log('Done.');
     }
+    console.log(`Type "cd ${path.basename(dest)}" (<enter>) to enter this exercise's directory.`);
   };
 };
